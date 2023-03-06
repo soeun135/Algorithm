@@ -9,9 +9,9 @@ class Main{
 		int num = scanner.nextInt();
 		String[] word = new String[num];
 		
-		scanner.nextLine();
+		//scanner.nextLine();
 		for(int i=0;i<num;i++) {
-			word[i] = scanner.nextLine();
+			word[i] = scanner.next();
 		}
 		Arrays.sort(word, new Comparator<String>() {
 			@Override
@@ -23,12 +23,15 @@ class Main{
 				else return o1.length() - o2.length();
 			}
 		});
-		System.out.println(word[0]);
+		StringBuilder sb = new StringBuilder();
+		sb.append(word[0]).append('\n');
+		
 		for(int i=1; i< num; i++) {
 			if(!word[i].equals(word[i-1])) {
-				System.out.println(word[i]);
+				sb.append(word[i]).append('\n');
 			}
 		}
+			System.out.println(sb);
 		scanner.close();
 	}
 }
