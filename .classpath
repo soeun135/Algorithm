@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="백준/Bronze/1546. 평균"/>
+	<classpathentry kind="src" path="백준/Bronze/2475. 검증수"/>
+	<classpathentry kind="src" path="백준/Bronze/2562. 최댓값"/>
+	<classpathentry kind="src" path="백준/Bronze/2739. 구구단"/>
+	<classpathentry kind="src" path="백준/Bronze/2753. 윤년"/>
+	<classpathentry kind="src" path="백준/Bronze/2908. 상수"/>
+	<classpathentry kind="src" path="백준/Bronze/2920. 음계"/>
+	<classpathentry kind="src" path="백준/Bronze/3052. 나머지"/>
+	<classpathentry kind="src" path="백준/Bronze/8958. OX퀴즈"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
