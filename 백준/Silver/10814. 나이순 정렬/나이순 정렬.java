@@ -1,31 +1,32 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 class Main{
 	public static void main(String[] args) throws  IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-		int num = Integer.parseInt(br.readLine());
-		String arr[][] = new String[num][2];
 		
-		StringTokenizer st;
-		for(int i=0;i<num;i++) {
-			st = new StringTokenizer(br.readLine());
-			arr[i][0] = st.nextToken();
-			arr[i][1] = st.nextToken();
+		int num = Integer.parseInt(br.readLine());
+		
+		StringBuilder []p = new StringBuilder[201]; //입력되는 나이의 범위 1~200
+		
+		for(int i=0;i<p.length;i++) {
+			p[i] = new StringBuilder(); //배열 하나하나마다 StringBuilder를 만들어줌.
 		}
-		Arrays.sort(arr,(o1,o2)->{
-				return Integer.parseInt(o1[0])-Integer.parseInt(o2[0]);
-		});
-		StringBuilder sb = new StringBuilder();
+	
 		for(int i=0;i<num;i++) {
-			sb.append(arr[i][0]+" "+arr[i][1]).append("\n");
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int age = Integer.parseInt(st.nextToken());
+			String name = st.nextToken();
+			p[age].append(age).append(" ").append(name).append("\n");
 		}
-		System.out.println(sb);
+		StringBuilder sb1 = new StringBuilder();
+		for(StringBuilder val : p) {
+			sb1.append(val);
+		}
+		System.out.println(sb1);
 	}
 }
