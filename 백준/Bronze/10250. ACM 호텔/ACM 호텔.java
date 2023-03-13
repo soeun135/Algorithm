@@ -9,44 +9,32 @@ class Main{
 		
 		int num = Integer.parseInt(br.readLine());
 		int input[][] = new int[num][3];
-		int count=0;
 		StringBuilder sb= new StringBuilder();
+		int X=0;
+		int Y=0;
 		int h=0;
 		int w=0;
 		int n=0;
-		String result[] = new String[num];
-		int search = 0;
 		for(int i=0;i<num;i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			input[i][0] = Integer.parseInt(st.nextToken());
 			input[i][1] = Integer.parseInt(st.nextToken());
 			input[i][2] = Integer.parseInt(st.nextToken());
 		}
-		for(int k=0;k<num;k++) {
-			h=input[k][0] ;
-			w=input[k][1];
-			n=input[k][2];
-
-			for(int i=1;i<=w;i++) {
-				for(int j=1;j<=h;j++) {
-					count++;
-					if(count == n) {
-						if(i<10) 
-							result[k] = j+"0"+i;
-						else
-						result[k] = j+""+i;
-			
-						search=1;
-						count=0;
-						break;
-					}
-				}
-				if(search == 1) {
-					sb.append(result[k]).append("\n");
-					search=0;
-					break;
-				}
-			}		
+		for(int i=0;i<num;i++) {
+			h = input[i][0];
+			w = input[i][1];
+			n = input[i][2];
+			if(n % h==0){//층수구하기
+				Y=h*100;
+				X = n/h;
+			}
+			else
+			{
+				Y=(n%h)*100;
+				X = (n/h)+1;
+			}
+			sb.append(Y+X).append("\n");
 		}
 		System.out.println(sb);
 	}
