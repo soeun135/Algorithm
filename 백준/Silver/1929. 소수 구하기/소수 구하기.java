@@ -1,14 +1,11 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 class Main{
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int m=0;
 		int n = 0;
 		
@@ -28,11 +25,11 @@ class Main{
 				arr[j] = 1; //소수가 아닌 수 1로 값 초기화
 			}
 		}
+		StringBuilder sb = new StringBuilder();
 		for(int i=m;i<=n;i++) {
 			if(arr[i] == 0)
-				bw.write(i+"\n");
+				sb.append(i+"\n");
 		}
-		bw.flush();
-		bw.close();
+		System.out.println(sb);
 	}
 }
