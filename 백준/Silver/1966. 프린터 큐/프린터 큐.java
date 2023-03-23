@@ -1,68 +1,53 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
- 
-public class Main {
-	public static void main(String[] args) {
-		
-		Scanner in = new Scanner(System.in);
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+class Main{
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
+		int num = Integer.parseInt(br.readLine());
+	
 		
-		int T = in.nextInt();	// 테스트 케이스 
- 
-		while (T-- > 0) {
+		while( num-- > 0) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			int count = Integer.parseInt(st.nextToken()); //문서의 갯수
+			int index = Integer.parseInt(st.nextToken()); //몇 번째로 인쇄되었는지 궁금한 문서가 큐에서 몇 번째에 있는지 나타내는 정수
+	
+			LinkedList <int[]> q = new LinkedList<>();
 			
-			int N = in.nextInt();
-			int M = in.nextInt();
-			
-			LinkedList<int[]> q = new LinkedList<>();	// Queue로 활용 할 연결리스트
- 
-			for (int i = 0; i < N; i++) {
-				// {초기 위치, 중요도}
-				q.offer(new int[] { i, in.nextInt() });
+			st = new StringTokenizer(br.readLine());
+			for(int i=0;i<count;i++) { //문서의 갯수만큼 큐에 인덱스와 중요도를 배열로 함께 넣음
+				q.offer(new int[]{i,Integer.parseInt(st.nextToken())});
 			}
- 
-			int count = 0;
 			
-			while (!q.isEmpty()) {	// 한 케이스에 대한 반복문
-				
-				int[] front = q.poll();	// 가장 첫 원소
-				boolean isMax = true;	// front 원소가 가장 큰 원소인지를 판단하는 변수
-				
-				// 큐에 남아있는 원소들과 중요도를 비교 
-				for(int i = 0; i < q.size(); i++) {
-					
-					// 처음 뽑은 원소보다 큐에 있는 i번째 원소가 중요도가 클 경우 
-					if(front[1] < q.get(i)[1]) {
+			int check = 0;
+			while(!q.isEmpty()) { //한 케이스에 대한 반복문
+				int []first = q.poll(); //제일 앞에있는 값을 뽑아서 first 배열에 인덱스, 중요도 순으로 넣음.
+				boolean isMax = true;
+				for(int i=0;i<q.size();i++) {
+					if(first[1] < q.get(i)[1]) {
 						
-						// 뽑은 원소 및 i 이전의 원소들을 뒤로 보낸다.
-						q.offer(front);
-						for(int j = 0; j < i; j++) {
+						q.offer(first);
+						for(int j=0;j<i ;j++) {
 							q.offer(q.poll());
 						}
-						
-						// front원소가 가장 큰 원소가 아니였으므로 false를 하고 탐색을 마침
-						isMax = false;
+						isMax = false; // 가장 처음 뽑은 front원소가 가장 큰 중요도를 가지지 않았음.
 						break;
 					}
-				}
-				
-				// front 원소가 가장 큰 원소가 아니였으므로 다음 반복문으로 넘어감
-				if(isMax == false) {
+				} 
+				if( isMax == false) {
 					continue;
 				}
-				
-				// front 원소가 가장 큰 원소였으므로 해당 원소는 출력해야하는 문서다.
-				count++;
-				if(front[0] == M) {	// 찾고자 하는 문서라면 해당 테스트케이스 종료
+				check++;
+				if(first[0] ==index) 
 					break;
-				}
- 
 			}
- 
-			sb.append(count).append('\n');
- 
-		}
-		System.out.println(sb);
-	}
- 
+			sb.append(check).append("\n");
+			}
+		System.out.println(sb);	
+	}	
 }
