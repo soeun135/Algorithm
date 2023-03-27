@@ -9,8 +9,7 @@ class Main{
         int cnt = scanner.nextInt();
         ArrayList<Integer> so=new ArrayList();
         HashMap<Integer,Integer> hashMap = new HashMap<>();
-        
-        for(int k=1;k<=cnt;k++){//입력한 숫자 갯수만큼 반복
+        for(int i=1;i<=cnt;i++){//입력한 숫자 갯수만큼 반복
             int num = scanner.nextInt();
             int count=0;
             for(int j=2;j<=num;j++) {
