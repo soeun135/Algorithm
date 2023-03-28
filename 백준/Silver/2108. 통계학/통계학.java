@@ -1,80 +1,66 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Main {
-	public static void main(String[] args) throws Exception {
+class Main{
+	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		List<Integer> list = new ArrayList<>();
-		HashMap<Integer, Integer> hashmap = new HashMap<>();
-
-		int loop = Integer.parseInt(br.readLine());
+		StringBuilder sb = new StringBuilder();
+		int num = Integer.parseInt(br.readLine());
+		
+		int arr[] = new int[num];
+		List <Integer> list = new ArrayList<>();
+		Map <Integer,Integer> map = new HashMap<>();
 		double sum = 0;
-		for(int i=0; i<loop; i++) {
-			int temp = Integer.parseInt(br.readLine());
-			sum += (double) temp;
-			list.add(temp);
+		for(int i=0;i<num;i++) {
+			arr[i] = Integer.parseInt(br.readLine());
+			sum += arr[i];
 		}
+		Arrays.sort(arr);
+		
+		int avg = (int)Math.round(sum/arr.length);
+		int mid = arr[arr.length/2];
+		
+		int max = arr[arr.length-1];
+		int min = arr[0];
 
-		// 중앙값을 찾기 위해 미리 정렬
-		Collections.sort(list);
-
-		int max = Collections.max(list);
-		int min = Collections.min(list);
-
-		// 둘다 음수 일 경우
-		if(max < 0 && min < 0) {
-			min = Math.abs(min);
+		int range;
+		
+		if(max > 0 && min >0) // 둘다 양수일 때
+			range = max-min;
+		else if(max <0 && min<0 )//둘다 음수일 때
+			range = Math.abs(min)-Math.abs(max);
+		else //둘 중에 하나라도 음수거나 0일 때
+			range = Math.abs(max) + Math.abs(min);
+		
+		for(int i:arr) {
+			map.put(i,map.getOrDefault(i, 0) +1);
 		}
-		// 둘다 양수 일 경우
-		else if(max > 0 && min > 0) {
-			min = min*-1;
+		int maxv = 0; //빈도수 
+		for(int key : map.values()) {
+			maxv = Math.max(maxv, key); //가장많이 나온 빈도수를 maxv에 넣음.
 		}
-		// min, max서로 부호가 다를 때, 둘중에 하나라도 0일 때
-		else {
-			max = Math.abs(max);
-			min = Math.abs(min);
-		}
-
-		double dle = sum / loop;
-		int Average = (int) Math.round(dle);
-		int Median = list.get(loop/2);
-		int Mode = 0;
-		int Range = max + min;
-
-		for(int num : list) {
-			// 숫자가 한번 나올 때마다 1이 추가됨.
-			hashmap.put(num, hashmap.getOrDefault(num, 0) + 1);
-		}
-
-		int numbers = 0;
-		for(int key : hashmap.values()) {
-			numbers = Math.max(numbers, key);
-		}
-
-		// 위에서 사용했던 list를 다시 사용하기 위해 clear 처리
-		// 최빈수를 구하기 최빈수와 같은 빈도의 수를 list에 삽입
-		list.clear();
-		for(int key : hashmap.keySet()) {
-			if(hashmap.get(key) == numbers) {
+		for(int key : map.keySet()) {
+			if(maxv == map.get(key)) { //최대 빈도수를 가지는 key값을 리스트에 저장
 				list.add(key);
 			}
 		}
-
-		// 최빈수가 2개 이상일 경우 2번째로 작은 값을 뽑아내야 하기 때문에 list를 정렬
 		Collections.sort(list);
-
-		// 최빈수와 빈도수가 같은 수가 2개 이상인경우 index 1의 값을 최빈수로 설정
-		// 1개일 경우는 그대로 index 0을 최빈수로 설정
-		if(list.size() >= 2) {
-			Mode = list.get(1);
+		
+		int mostv;
+		if(list.size()>=2) {
+			mostv = list.get(1);
 		}
-		else {
-			Mode = list.get(0);
-		}
-
-		System.out.println(Average);
-		System.out.println(Median);
-		System.out.println(Mode);
-		System.out.println(Range);
-	}
+		else
+			mostv = list.get(0);
+			
+		sb.append(avg+"\n"+mid+"\n"+mostv+"\n"+range);
+		System.out.println(sb);
+	}	
 }
