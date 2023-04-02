@@ -1,30 +1,34 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class Main {
-	public static void main(String[] args) {
+class Main{
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				
+		int num = Integer.parseInt(br.readLine());
+		int apart[][] = new int[15][15];
 		
-		int [][] apart = new int [15][15];  // 15층 15호까지 만들기 2차원배열 사용
-		
-		for (int i=1; i<apart.length; i++) { //0층 주민들 저장하기.
-			apart[0][i]=i;
-		} 
-		
-		for (int i=1; i<apart.length; i++) {      //1층 1호층부터 연산을 통해 저장하기.
-			int nesting =0;
-			for (int j=1; j<apart[i].length; j++) {	
-				apart[i][j]=apart[i-1][j]+ nesting;
-				nesting= apart[i][j]; 
-				}
+		//0층 인원 저장
+		for(int i=1;i<apart.length;i++) {
+			apart[0][i] = i;
 		}
-		
-		Scanner sc = new Scanner(System.in);
-		
-		// 저장된 이차원 배열을 출력하기.
-		int test = sc.nextInt();
-		for (int i=0; i<test; i++) {
-			int floor =sc.nextInt();  //층 
-			int arc = sc.nextInt();   //호
-			System.out.println(apart[floor][arc]);      // 몇층 몇호를 출력할건지..
+		//1층 1호부터 인원 저장
+		for(int i=1;i<15;i++) {
+			int number = 0;
+			for(int j=1;j<apart[i].length;j++) {
+				if(j==1) apart[i][j] = 1;
+				else 
+				apart[i][j] = apart[i-1][j]+number;
+				number = apart[i][j];
+			}
 		}
+		StringBuilder sb = new StringBuilder();
+		for(int i=0;i<num;i++) {
+			int k=Integer.parseInt(br.readLine());
+			int n = Integer.parseInt(br.readLine());
+			sb.append(apart[k][n]+"\n");
+		}
+		System.out.println(sb);
 	}
 }
