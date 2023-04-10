@@ -2,7 +2,11 @@ import java.io.FileInputStream;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-class Solution
+/*
+   사용하는 클래스명이 Solution 이어야 하므로, 가급적 Solution.java 를 사용할 것을 권장합니다.
+   이러한 상황에서도 동일하게 java Solution 명령으로 프로그램을 수행해볼 수 있습니다.
+ */
+public class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
@@ -19,34 +23,40 @@ class Solution
 		int T;
 		T=sc.nextInt();
 		
+		int daycount[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+		
 		String arr[] = new String[T];
-		String carr[][] = new String[T][8];
 		for(int test_case = 0;test_case<T;test_case++) {
-				arr[test_case] = sc.next();
+			arr[test_case] = sc.next();
 		}
 		for(int test_case = 0;test_case<T;test_case++) {
-			for(int i=0;i<8;i++) {
-				carr[test_case] = arr[test_case].split("");
-			}
-		}
-		for(int test_case = 0;test_case<T;test_case++) {
-			String str = "";
-
-			int month = Integer.parseInt(carr[test_case][4]+carr[test_case][5]);
-			int date = Integer.parseInt(carr[test_case][6]+carr[test_case][7]);
+			int year = Integer.parseInt(arr[test_case].substring(0,4));
+			int month = Integer.parseInt(arr[test_case].substring(4,6));
+			int date = Integer.parseInt(arr[test_case].substring(6,8));
 			
-			if((month==01||month==3||month==5||month==7||month==8||month==10||month==12)&&(date>=1&&date<=31))
-				str = carr[test_case][0]+carr[test_case][1]+carr[test_case][2]+carr[test_case][3]+"/"+
-						carr[test_case][4]+carr[test_case][5]+"/"+carr[test_case][6]+carr[test_case][7];
-			else if(month==2 &&(date>=1&&date<=28))
-				str = carr[test_case][0]+carr[test_case][1]+carr[test_case][2]+carr[test_case][3]+"/"+
-						carr[test_case][4]+carr[test_case][5]+"/"+carr[test_case][6]+carr[test_case][7];
-			else if((month==4||month==6||month==9||month==11)&&(date>=1&&date<=30))
-				str = carr[test_case][0]+carr[test_case][1]+carr[test_case][2]+carr[test_case][3]+"/"+
-						carr[test_case][4]+carr[test_case][5]+"/"+carr[test_case][6]+carr[test_case][7];
+			if((month<=12 && month>=1)&& date<=daycount[month]) {
+				if(year<1000) {
+					if(month <10 && date<10) //year<1000 month<10 date<10
+						System.out.println("#"+(test_case+1)+" 0"+year+"/0"+month+"/0"+date);
+					else if(month<10) //year<1000 month<10 date>10
+						System.out.println("#"+(test_case+1)+" 0"+year+"/0"+month+"/"+date);
+					else //year<1000 month>10 date<10
+						System.out.println("#"+(test_case+1)+" 0"+year+"/"+month+"/0"+date);
+				}
+				else if(month<10) { 
+					if(date<10)//year>1000 month<10 date<10
+					System.out.println("#"+(test_case+1)+" "+year+"/0"+month+"/0"+date);
+					else  //year>1000 month<10 date>10
+						System.out.println("#"+(test_case+1)+" "+year+"/0"+month+"/"+date);
+				}
+				else if(month>10)//date<10
+					if(date<10)
+					System.out.println("#"+(test_case+1)+" "+year+"/"+month+"/0"+date);
+				else
+					System.out.println("#"+(test_case+1)+" "+year+"/"+month+"/"+date);
+			}
 			else
-				str = "-1";
-			System.out.println("#"+(test_case+1)+" "+str);
+				System.out.println("#"+(test_case+1)+" "+"-1");
 		}
 		sc.close();
 	}
