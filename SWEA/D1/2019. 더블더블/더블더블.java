@@ -54,11 +54,10 @@ class Solution
 		/*
 		   여러 개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
 		*/
-		int mul = 1;
-		for(int test_case = 1; test_case <= T+1; test_case++)
+
+		for(int test_case = 0; test_case <= T; test_case++)
 		{
-            System.out.print(mul+" ");
-            mul *=2;
+            System.out.print((int)Math.pow(2,test_case)+" ");
 		}
 	}
 }
