@@ -23,13 +23,14 @@ public class Solution
 		for(int i=0;i<num;i++) {
 			arr[i] = br.readLine();
 			int count = 0;
-			
-			char tmp = arr[i].charAt(0);
-			char tmp1 = arr[i].charAt(1);
-
-			for(int j=1;j<arr[i].length();j++) { //한 문자열을 돌면서 같은 애가 몇 번째에 나오는지 체크
-				count++;
-				if(arr[i].charAt(j)==tmp && arr[i].charAt(j+1)==tmp1) {
+			int t = 0;
+			for(int j=0;j<10;j++) { //한 문자열을 돌면서 같은 애가 몇 번째에 나오는지 체크
+				
+				String tmp = arr[i].substring(0,j+2);
+				String tmp1=arr[i].substring(j+2, j+4+t);
+				t++;
+				if(tmp.equals(tmp1)) {
+					count = tmp.length();
 					break;
 				}
 			}
