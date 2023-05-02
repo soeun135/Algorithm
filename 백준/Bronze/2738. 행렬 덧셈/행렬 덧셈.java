@@ -28,15 +28,10 @@ class Main{
     			sarr[i][j] = Integer.parseInt(st.nextToken());
     		}
     	}
-    	for(int i=0;i<N;i++) {
-    		for(int j=0;j<M;j++) {
-    			resultarr[i][j] = farr[i][j]+sarr[i][j];
-    		}
-    	}
     	
     	for(int i=0;i<N;i++) {
     		for(int j=0;j<M;j++) {
-    			System.out.print(resultarr[i][j]);
+    			System.out.print(farr[i][j]+sarr[i][j]);
     			if(j != M-1) {
     				System.out.print(" ");
     			}
