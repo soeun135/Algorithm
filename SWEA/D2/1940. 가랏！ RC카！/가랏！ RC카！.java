@@ -35,8 +35,10 @@ public class Solution
 						speed += m_ss;
 					}
 					else if(ch==2){ //감속
-						if(speed < m_ss)
+						if(speed < m_ss) {
+							speed = 0;
 							continue;
+						}
 						else {
 							result += speed-m_ss;
 							speed -= m_ss;
