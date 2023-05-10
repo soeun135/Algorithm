@@ -8,10 +8,8 @@ public class Main {
         
         long T = Long.parseLong(br.readLine());
         long count = 0;
-        for(long i = T-1;i>0;i--) {
-        	count += i;
-        }
-        System.out.println(count);
+       
+        System.out.println(T*(T-1)/2);
         System.out.println(2);
     }
 }
