@@ -26,7 +26,7 @@ public class Main {
         	}
         	else if(str.equals("pop")) {
         		if(!q.isEmpty())
-        			sb.append(q.poll()+"\n");
+        			sb.append(q.remove()+"\n");
         		else sb.append(-1+"\n");
         	}
         	else if(str.equals("size")) {
