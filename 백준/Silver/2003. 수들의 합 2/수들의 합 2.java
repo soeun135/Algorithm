@@ -18,12 +18,12 @@ class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int p1 = 0;
         int answer = 0;
-        for (int i = p1; i < N; i++) {
-            int total = 0;
+        for (int i = 0; i < N; i++) {
             int p2 = i;
-            while (total < M && p2 < N) {
+            int total = 0;
+            
+            while (p2 < N && total < M) {
                 total += arr[p2++];
 
                 if (total == M) {
