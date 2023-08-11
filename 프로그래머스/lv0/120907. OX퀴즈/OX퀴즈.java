@@ -1,31 +1,33 @@
-import java.util.*;
-
 class Solution {
-     public static String[] solution(String[] quiz) {
+    public String[] solution(String[] quiz) {
         String[] answer = new String[quiz.length];
-        ArrayList <String> result = new ArrayList<>();
-        for (String str : quiz) {
-            String arr[] = new String[5];
+        
+        for (int i = 0; i < quiz.length; i++) {
+            String []temp = new String[5];
             int idx = 0;
-            for (String s : str.split(" ")) {
-                arr[idx++] = s;
+            
+            for (String item : quiz[i].split(" ")) {
+                temp[idx++] = item;
             }
-
-            int a = Integer.parseInt(arr[0]);
-            char op = arr[1].charAt(0);
-            int b = Integer.parseInt(arr[2]);
-            int c = Integer.parseInt(arr[4]);
-            switch (op) {
-                case '+':
-                    if (a + b == c)result.add("O");
-                    else result.add("X");
-                    break;
-                case '-':
-                    if (a - b == c)result.add("O");
-                    else result.add("X");
-                    break;
+            int n1 = Integer.parseInt(temp[0]);
+            char op = temp[1].charAt(0);
+            int n2 = Integer.parseInt(temp[2]);
+            
+            if (op == '+') {
+                if (n1+n2 == Integer.parseInt(temp[4])) {
+                    answer[i] = "O";
+                } else {
+                    answer[i] = "X";
+                }
+            } else {
+                if (n1-n2 == Integer.parseInt(temp[4])) {
+                    answer[i] = "O";
+                } else {
+                    answer[i] = "X";
+                }
             }
+            
         }
-        return result.stream().map(x->x).toArray(String[]::new);
+        return answer;
     }
 }
