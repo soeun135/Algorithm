@@ -5,19 +5,19 @@ import java.util.Map;
 
 class Solution {
     public static String solution(String s) {
-        String answer = "";
-        Hashtable <String,Integer> ht = new Hashtable<>();
-        ArrayList <String> list = new ArrayList<>();
-        for(String str : s.split("")) {
-            ht.put(str,ht.getOrDefault(str, 0 ) + 1);
+
+        Hashtable <String, Integer>map = new Hashtable<>();
+        ArrayList <String>list = new ArrayList<>();
+        for (String i : s.split("")) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
         }
-        for(Map.Entry<String, Integer> map : ht.entrySet()){
-            if(map.getValue() == 1){
-                list.add(map.getKey());
+        for (Map.Entry<String, Integer>item : map.entrySet()) {
+            if (item.getValue() == 1) {
+                list.add(item.getKey());
             }
         }
         Collections.sort(list);
-        answer = String.join("",list);
-        return answer;
+        
+        return String.join("",list);
     }
 }
