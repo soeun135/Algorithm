@@ -1,20 +1,18 @@
 import java.util.*;
 import java.util.stream.IntStream;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 
 class Solution {
    public static int[] solution(int[] arr, int[] delete_list) {
-        int[] answer = {};
-        ArrayList <Integer>result = new ArrayList<>();
-        ArrayList <Integer>list2 = new ArrayList<>();
-        IntStream.of(delete_list).forEach(list2::add);
+        LinkedHashSet <Integer>set = new LinkedHashSet<>();
+       for (int i : arr) {
+           set.add(i);
+       }
+        HashSet <Integer>set2 = new HashSet<>(Arrays.stream(delete_list).boxed().collect(Collectors.toSet()));
+        set.removeAll(set2);
        
-        for (int i = 0; i < arr.length ; i++) {
-            if (!list2.contains(arr[i])) {
-                result.add(arr[i]);
-            }
-        }
-        answer = result.stream().mapToInt(x->x).toArray();
-        return answer;
+        return set.stream().mapToInt(x->x).toArray();
     }
 }
