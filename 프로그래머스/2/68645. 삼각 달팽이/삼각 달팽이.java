@@ -1,62 +1,57 @@
 class Solution {
-    public static int[] solution(int n) {
-        int[] answer = new int[n * (n + 1) / 2];
+    public int[] solution(int n) {
 
-        int[][] arr = new int[n][n];
+        int[][] triangle = new int[n][n];
         int v = 1;
 
         int x = 0;
         int y = 0;
-        boolean flag = false;
 
-        while (!flag) {
-            //아래로 이동
-            while (x < n && arr[x][y] == 0) {
-                arr[x++][y] = v++;
+        while (true) {
+            // 아래로 이동
+            while (true) {
+                triangle[x][y] = v++;
 
-                if (n * (n + 1) / 2 + 1 == v) {
-                    flag = true;
-                    break;
-                }
+                if (x + 1 == n || triangle[x + 1][y] != 0) break;
+                x++;
             }
-            if (flag) break;
-            x--;
-            y++;
-            //오른쪽 이동
-            while (y < n && arr[x][y] == 0) {
-                arr[x][y++] = v++;
-
-                if (n * (n + 1) / 2 + 1 == v) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) break;
-
-            x--;
-            y -= 2;
-            //왼쪽 위로 이동
-            while (arr[x][y] == 0) {
-                arr[x--][y--] = v++;
-
-                if (n * (n + 1) / 2 + 1 == v) {
-                    flag = true;
-                    break;
-                }
-            }
-            if (flag) break;
-            x += 2;
+            if (y + 1 == n || triangle[x][y + 1] != 0) break;
             y++;
 
+            //오른쪽으로 이동
+            while (true) {
+                triangle[x][y] = v++;
+
+                if (y + 1 == n || triangle[x][y + 1] != 0) break;
+                y++;
+            }
+            if (triangle[x - 1][y - 1] != 0) break;
+            x--;
+            y--;
+            // 왼쪽 위로 이동
+            while (true) {
+                triangle[x][y] = v++;
+
+                if (triangle[x - 1][y - 1] != 0) break;
+                x--;
+                y--;
+            }
+            if (x + 1 == n || triangle[x + 1][y] != 0) break;
+            x++;
         }
 
-        int idx = 0;
+        int[] answer = new int[v - 1];
+
+        int cnt = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (arr[i][j] != 0)
-                    answer[idx++] = arr[i][j];
+                
+                if (triangle[i][j] != 0) {
+                    answer[cnt++] = triangle[i][j];
+                }
             }
         }
+                
         return answer;
     }
 }
