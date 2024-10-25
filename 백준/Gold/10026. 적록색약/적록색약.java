@@ -58,26 +58,16 @@ public class Main {
                 for (int j = 0; j < N; j++) {
                     if (!visited[i][j] && picture[i][j] == c) {
                         result[0] ++;
-                        visited[0][0] = true;
-                        dfs(new Point(i, j), c);
+                        dfs(new Point(i, j), c, picture, visited);
+                    }
+
+                    if (c < 2  && !visited2[i][j] && picture2[i][j] == c) {
+                        result[1] ++;
+                        dfs(new Point(i, j), c, picture2, visited2);
                     }
                 }
             }
             visited = new boolean[N][N];
-            c++;
-        }
-
-        c = 0;
-        while (c < 2) {
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    if (!visited2[i][j] && picture2[i][j] == c) {
-                        result[1] ++;
-                        visited2[0][0] = true;
-                        dfs2(new Point(i, j), c);
-                    }
-                }
-            }
             visited2 = new boolean[N][N];
             c++;
         }
@@ -85,7 +75,8 @@ public class Main {
         System.out.println(result[0] + " " + result[1]);
     }
 
-    public static void dfs(Point cur, int chk) {
+    public static void dfs(Point cur, int chk, int[][] picture, boolean[][] visited) {
+        visited[cur.x][cur.y] = true;
 
         for (int i = 0; i < 4; i++) {
             int dx = cur.x + d[i][0];
@@ -94,22 +85,7 @@ public class Main {
             if (dx < 0 || dy < 0 || dx >= N || dy >= N || visited[dx][dy] || picture[dx][dy] != chk) {
                 continue;
             }
-            visited[dx][dy] = true;
-            dfs(new Point(dx, dy), chk);
-        }
-    }
-
-    public static void dfs2(Point cur, int chk) {
-
-        for (int i = 0; i < 4; i++) {
-            int dx = cur.x + d[i][0];
-            int dy = cur.y + d[i][1];
-
-            if (dx < 0 || dy < 0 || dx >= N || dy >= N || visited2[dx][dy] || picture2[dx][dy] != chk) {
-                continue;
-            }
-            visited2[dx][dy] = true;
-            dfs2(new Point(dx, dy), chk);
+            dfs(new Point(dx, dy), chk, picture, visited);
         }
     }
 }
