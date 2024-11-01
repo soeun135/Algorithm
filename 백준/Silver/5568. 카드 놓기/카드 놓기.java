@@ -7,9 +7,9 @@ public class Main {
     static int[] arr;
     static int[] result;
     static boolean[] visited;
-    static List<Integer> integers = new ArrayList<>();
+    static Set<Integer> integers = new HashSet<>();
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
@@ -34,9 +34,7 @@ public class Main {
             for (int i = 0; i < k; i++) {
                 str += result[i];
             }
-            if (!integers.contains(Integer.parseInt(str))) {
-                integers.add(Integer.parseInt(str));
-            }
+            integers.add(Integer.parseInt(str));
             return;
         }
 
