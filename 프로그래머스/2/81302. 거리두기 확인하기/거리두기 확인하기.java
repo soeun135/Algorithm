@@ -1,73 +1,66 @@
 class Solution {
-    private static final int[] dx = {-1, 0, 0, 1};
-    private static final int[] dy = {0, -1, 1, 0};
-
     public int[] solution(String[][] places) {
         int[] answer = new int[places.length];
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < answer.length; i++) {
             String[] place = places[i];
-            char[][] room = new char[place.length][];
-
+            char[][] room = new char[places.length][];
             for (int j = 0; j < room.length; j++) {
                 room[j] = place[j].toCharArray();
             }
-            // 거리 두기 검사
-            if (isDistanced(room)) {
-                answer[i] = 1;
-            } else {
-                answer[i] = 0;
-            }
+            //거리두기 검사
+            answer[i] = (isDistanced(room) ? 1 : 0);
         }
         return answer;
     }
-    
-    private boolean isDistanced(char[][] room) {
 
-        for (int i = 0; i < room.length; i++) {
-            for (int j = 0; j < room[i].length; j++) {
-                if (room[i][j] != 'P') continue;
+    private static final int[] dx = {0, -1, 1, 0};
+    private static final int[] dy = {-1, 0, 0, 1};
 
-                //거리두기 검사
-                if (!isDistanced(room, i, j)) return false;
+    public boolean isDistanced(char[][] room) {
+        for (int y = 0; y < room.length; y++) {
+            for (int x = 0; x < room[y].length; x++) {
+                if (room[y][x] != 'P') continue;
+
+                //응시자이면
+                if (!isDistanced(room, x, y)) return false;
             }
         }
         return true;
     }
 
-    private boolean isDistanced(char[][] room, int x, int y) {
-        //room[x][y]가 거리두기를 지키는 지 검사
-        for (int d = 0; d < 4; d++) {
-            int nx = x + dx[d];
-            int ny = y + dy[d];
-
-            if (nx == room.length || nx < 0 || ny == room[nx].length || ny < 0) continue;
-
-            switch (room[nx][ny]) {
+    public boolean isDistanced(char[][] room, int x, int y) {
+        //응시자일 때
+        for (int i = 0; i < 4; i++) {
+            //이 위치 기준 상하좌우로 
+            //파티션이면 continue
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            if (ny < 0 || ny >= room.length || nx < 0 || nx >= room[ny].length)
+                continue;
+            switch (room[ny][nx]) {
                 case 'P':
                     return false;
+                case 'X':
+                    continue;
                 case 'O':
-                    //이 위치로부터 인접한 곳에 다른 응시자 있는 지 검사
-                    if (isNextToVolunteer(room, nx, ny, 3 - d)) return false;
+                    if (isNextToVolunteer(room, nx, ny, 3 - i)) return false;
                     break;
             }
         }
         return true;
     }
-    
-    private boolean isNextToVolunteer(char[][] room, int x, int y, int d) {
 
-        for (int i = 0; i < 4; i++) {
-            if (i == d) continue;
+    public boolean isNextToVolunteer(char[][] room, int x, int y, int exclude) {
+        for (int d = 0; d < 4; d++) {
+            if (d == exclude) continue;
 
-            int nx = x + dx[i];
-            int ny = y + dy[i];
 
-            if (nx == room.length || nx < 0 || ny == room[nx].length || ny < 0) continue;
-
-            if (room[nx][ny] == 'P') return true;
-
+            int nx = x + dx[d];
+            int ny = y + dy[d];
+            if (ny < 0 || ny >= room.length || nx < 0 || nx >= room[ny].length) continue;
+            if (room[ny][nx] == 'P') return true;
         }
         return false;
-    }
+}
 }
