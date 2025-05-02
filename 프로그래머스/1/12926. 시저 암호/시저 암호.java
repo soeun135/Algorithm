@@ -1,24 +1,24 @@
 class Solution {
-    public static String solution(String s, int n) {
-        StringBuilder sb = new StringBuilder();
+   public String solution(String s, int n) {
+        char[] arr = s.toCharArray();
 
-        for (char c : s.toCharArray()) {
+        StringBuilder sb = new StringBuilder();
+        for(char c : s.toCharArray()) {
+            //알파멧 밀기
             sb.append(push(c, n));
         }
 
         return sb.toString();
     }
 
-    private static char push(char c, int n) {
-        //c를 n만큼 밀어 반환
-        if (c == ' ') {
-            return c;
-        } else {
-            int offset = Character.isUpperCase(c) ? 'A' : 'a';
-            int position = c - offset;
+    public char push (char c, int n) {
+        if (!Character.isAlphabetic(c)) return c;
 
-            position = (char) ((position + n) % 26);
-            return (char) (offset + position);
-        }
+        int offset = Character.isUpperCase(c) ? 'A' : 'a'; //offset 설정
+        int position = c - offset;
+
+        position = (position + n) % ('Z' - 'A' + 1);
+
+        return (char) (offset + position);
     }
 }
