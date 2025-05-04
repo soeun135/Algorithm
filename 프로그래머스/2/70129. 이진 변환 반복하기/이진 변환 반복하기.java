@@ -1,25 +1,16 @@
 class Solution {
-    public int[] solution(String s) {
+    public int[] solution(String x) {
+        int[] answer = new int[2];
 
-        StringBuilder sb = new StringBuilder();
-        int zeroCnt = 0;
-        int changeCnt = 0;
+        while (!x.equals("1")) {
+            answer[0] ++;
+            int length = x.length();
 
-        while (true) {
-            String deleteStr = s.replaceAll("0", "");
+            int remove_length = x.replace("0", "").length();
+            answer[1] = answer[1] + length - remove_length;
 
-            int leftLength = deleteStr.length();
-
-            zeroCnt += s.length() - leftLength;
-            
-            s = Integer.toString(leftLength, 2);
-            changeCnt++;
-            
-            if (s.equals("1")) {
-                break;
-            }
+            x = Integer.toString(remove_length, 2);
         }
-        
-        return new int[] {changeCnt, zeroCnt};
+        return answer;
     }
 }
