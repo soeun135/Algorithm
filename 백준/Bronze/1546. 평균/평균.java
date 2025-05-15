@@ -19,11 +19,9 @@ class Main {
                 max = score[i];
             }
         }
-        
         for (int i = 0; i < N; i++) {
-            newScore[i] = (double) score[i] / max * 100;
-            sum += newScore[i];
+            sum += score[i];
         }
-        System.out.println(sum / N);
+        System.out.println((double) sum / max * 100 / N);
     }
 }
