@@ -18,9 +18,7 @@ class Main {
             if (max < score[i]) {
                 max = score[i];
             }
-        }
-        for (int i = 0; i < N; i++) {
-            sum += score[i];
+              sum += score[i];
         }
         System.out.println((double) sum / max * 100 / N);
     }
