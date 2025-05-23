@@ -1,4 +1,6 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Main {
@@ -14,17 +16,10 @@ class Main {
 
         st = new StringTokenizer(br.readLine());
 
-        int[] origin = new int[N + 1];
         int[] sum = new int[N + 1];
 
         for (int i = 1; i <= N; i++) {
-            origin[i] = Integer.parseInt(st.nextToken());
-
-            if (i == 0) {
-                sum[i] = origin[i];
-            } else {
-                sum[i] = sum[i - 1] + origin[i];
-            }
+            sum[i] = sum[i - 1] + Integer.parseInt(st.nextToken());
         }
 
         for (int i = 0; i < M; i++) {
