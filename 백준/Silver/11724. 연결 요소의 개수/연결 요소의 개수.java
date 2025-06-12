@@ -1,60 +1,56 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
-    static int N, M;
-    static boolean[] visited;
-    static List[] line;
-
+class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         StringTokenizer st = new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken()); //노드
+        int M = Integer.parseInt(st.nextToken()); //간선
 
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-
-        visited = new boolean[N + 1];
-        line = new List[N + 1];
+        //그래프 만들기 - 인접리스트로 구현 무방향그래프이므로 양방향.
+        List<Integer>[] graph = new List[N + 1];
 
         for (int i = 0; i < N + 1; i++) {
-            line[i] = new ArrayList<>();
+            graph[i] = new ArrayList<>();
         }
-
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int u = Integer.parseInt(st.nextToken());
             int v = Integer.parseInt(st.nextToken());
-            line[u].add(v);
-            line[v].add(u);
+            graph[u].add(v);
+            graph[v].add(u);
         }
+        int[] result = new int[N];
 
-        for (int i = 0; i < N; i++) {
-            if (!visited[i + 1]) {
-                bfs(i + 1);
-                cnt++;
-            }
-        }
+        Stack<Integer> stack = new Stack<>();
+        boolean[] visited = new boolean[N + 1];
 
-        System.out.println(cnt);
+        int idx = 0;
+        int answer = 0;
+        for (int i = 1; i < N + 1; i++) {
+            if (visited[i]) continue;
+            stack.add(i);
+            answer++;
 
-    }
-    static int cnt = 0;
+            while (!stack.isEmpty()) {
+                int cur = stack.pop();
 
-    public static void bfs(int start) {
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(start);
-        visited[start] = true;
 
-        while (!q.isEmpty()) {
-            int cur = q.poll();
-
-            for (int i = 0; i < line[cur].size(); i++) {
-                if (!visited[(int) line[cur].get(i)]) {
-                    visited[(int) line[cur].get(i)] = true;
-                    q.offer((int) line[cur].get(i));
+                for (int nearNode : graph[cur]) {
+                    if (!visited[nearNode]) {
+                        stack.push(nearNode);
+                        visited[nearNode] = true;
+                    }
                 }
+                visited[cur] = true;
+                result[idx++] = cur;
             }
         }
+//        for (int x : result) {
+//            System.out.println(x);
+//        }
+
+        System.out.println(answer);
     }
 }
