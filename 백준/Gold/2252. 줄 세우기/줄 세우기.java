@@ -30,21 +30,30 @@ class Main {
             graph[a].add(b);
             D[b]++;
         }
-        while (idx < N) {
          wisang();
-        }
+        
         for (int i : answer) {
             System.out.print(i + " ");
         }
     }
     private static void wisang() {
+        Queue<Integer> q = new LinkedList<>();
+        
         for (int i = 1; i < N + 1; i++) {
-            if (D[i] == 0 && !visited[i]) {
-                answer[idx++] = i;
-                visited[i] = true;
-                
-                for (int j : graph[i]) {
+            if (D[i] == 0) {
+                q.offer(i);
+            }
+        }
+        while (!q.isEmpty()) {
+            int cur = q.poll();
+            
+            if (!visited[cur]) {
+                visited[cur] = true;
+                answer[idx++] = cur;
+                for (int j : graph[cur]) {
                     D[j]--;
+                    
+                    if (D[j] == 0) q.offer(j);
                 }
             }
         }
