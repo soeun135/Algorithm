@@ -11,7 +11,8 @@ class Main {
             this.V = V;
         }
     }
-    public static void main(String[] args) throws IOException{
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -36,19 +37,20 @@ class Main {
 
             graph[u].add(new Node(v, w));
         }
-        PriorityQueue<Integer> q = new PriorityQueue<>((o1, o2) -> D[(int) o1] - D[(int) o2]);
-        q.offer(K);
+        PriorityQueue<Node> q = new PriorityQueue<>((o1, o2) -> o1.V - o2.V);
+        q.offer(new Node(K, 0));
 
         while (!q.isEmpty()) {
-            int curNode = q.poll();
+            Node curNode = q.poll();
 
-            if (visited[curNode]) continue;
-            visited[curNode] = true;
+            if (visited[curNode.E]) continue;
+            visited[curNode.E] = true;
 
-            for (int i = 0; i < graph[curNode].size(); i++) {
-                Node node = graph[curNode].get(i);
-                D[node.E] = Math.min(D[node.E], D[curNode] + node.V);
-                q.offer(node.E);
+            for (Node node : graph[curNode.E]) {
+                if (D[node.E] > D[curNode.E] + node.V) {
+                    D[node.E] = D[curNode.E] + node.V;
+                    q.offer(new Node(node.E, D[node.E]));
+                }
             }
         }
 
