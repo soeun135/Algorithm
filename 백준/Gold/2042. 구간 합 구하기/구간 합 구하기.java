@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 class Main {
-    static Long[] tree;
+    static long[] tree;
     static int flag;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -22,8 +22,7 @@ class Main {
         int startIdx = (int) Math.pow(2, flag);
         int tmpIdx = startIdx;
 
-        tree = new Long[treeSize];
-        Arrays.fill(tree, (long) 0);
+        tree = new long[treeSize];
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
