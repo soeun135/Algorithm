@@ -1,45 +1,27 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.sql.SQLOutput;
-import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.io.*;
 
-class Main {
-    public static void main(String args[]) throws IOException {
+public class Main {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
         int n = Integer.parseInt(br.readLine());
-        int arr[] = new int[n];
+        
+        int[] arr = new int[2_000_001];
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
-
-        int target = Integer.parseInt(br.readLine());
+        
+        int x = Integer.parseInt(br.readLine());
+        
         int answer = 0;
-
-        Arrays.sort(arr);
-
-        int p1 = 0;
-        int p2 = n - 1;
-        int total = 0;
-
-        while (p1 < p2) {
-            if (arr[p1] + arr[p2] < target) {
-                p1++;
-            } else if (arr[p1] + arr[p2] > target) {
-                p2--;
-            }
-
-            if (arr[p1] + arr[p2] == target) {
+        
+        for (int i = 0; i < n; i++) {
+            int num = Integer.parseInt(st.nextToken());
+            
+            if (x - num > 0 && arr[x - num] == 1) {
                 answer++;
-                p1++;
-                p2--;
             }
-
+            arr[num] = 1;
         }
         System.out.println(answer);
+        br.close();
     }
 }
