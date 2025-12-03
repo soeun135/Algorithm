@@ -8,21 +8,11 @@ public class Main {
         String doc = br.readLine();
         String word = br.readLine();
         
-        int startIdx = 0;
-        int answer = 0;
+        int docLen = doc.length();
         
-        int wordLen = word.length();
+         doc = doc.replace(word, ""); 
         
-        while (startIdx <= doc.length() - wordLen) {
-            String sub = doc.substring(startIdx, startIdx + wordLen);
-            
-            if (sub.equals(word)) {
-                answer++;
-                startIdx += wordLen;
-            } else startIdx++;
-        }
-        
-        System.out.println(answer);
+        System.out.println((docLen - doc.length()) / word.length());
         br.close();
     }
 }
