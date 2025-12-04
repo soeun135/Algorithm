@@ -1,41 +1,42 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
-import java.util.stream.IntStream;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuffer sb = new StringBuffer();
 
-        Queue q = new LinkedList();
-        ArrayList <Integer>list = new ArrayList();
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-        int cnt = 0;
-        IntStream.range(1,N+1).forEach(x -> q.add(x));
+        StringBuilder sb = new StringBuilder();
 
-        while(!q.isEmpty()){
-            int data = (int) q.remove();
-            cnt += 1;
-            if(cnt % K == 0){
-                list.add(data);
-            }
-            else q.add(data);
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+
+        int[] arr = new int[n];
+        int outCnt = 1;
+        int idx = k - 1;
+
+        Queue<Integer> q = new LinkedList<>();
+
+        for (int i = 0; i < n; i++){
+            //arr[i] = i + 1;
+            q.offer(i + 1);
         }
         sb.append("<");
-        for(int i = 0;i<list.size();i++){
-            sb.append(list.get(i));
-            if(i != list.size()-1){
-                sb.append(", ");
+        arr[idx] = 0;
+
+
+        while (!q.isEmpty()){
+
+            for (int i = 1; i < k; i++) {
+                q.offer(q.poll());
             }
+            sb.append(q.poll());
+
+            if (!q.isEmpty()) sb.append(", ");
         }
+
         sb.append(">");
-        System.out.print(sb);
+        System.out.println(sb);
+        br.close();
     }
 }
