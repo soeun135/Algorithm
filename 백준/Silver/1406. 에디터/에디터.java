@@ -10,16 +10,16 @@ class Main {
         
         int M = Integer.parseInt(br.readLine());
         
-        Stack<Character> lStack = new Stack<>();
-        Stack<Character> rStack = new Stack<>();
+        Deque<Character> lStack = new ArrayDeque<>();
+        Deque<Character> rStack = new ArrayDeque<>();
         
         for (int i = 0; i < N.length(); i++) {
             lStack.push(N.charAt(i));
         }
         for (int i = 0; i < M; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
+            String str = br.readLine();
             
-            char cmd = st.nextToken().charAt(0);
+            char cmd = str.charAt(0);
             
             switch(cmd) {
                 case 'L':
@@ -35,7 +35,7 @@ class Main {
                         lStack.pop();
                     break;
                 case 'P':
-                    lStack.push(st.nextToken().charAt(0));
+                    lStack.push(str.charAt(2));
                     break;
             }
         }
