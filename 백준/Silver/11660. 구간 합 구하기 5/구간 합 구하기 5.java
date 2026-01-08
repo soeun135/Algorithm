@@ -23,25 +23,19 @@ class Main {
             
             for (int j = 1; j <= N; j++) {
                 int num = Integer.parseInt(st.nextToken());
-                sum[i][j] = sum[i][j - 1] + num;
+                sum[i][j] = num + sum[i - 1][j] + sum[i][j - 1] - sum[i - 1][j - 1];
             }
         }
         StringBuilder sb = new StringBuilder();
         
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
-            Point start = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
-            Point end = new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
-            int tmp = 0;
-            
-            if (start.x == end.x && start.y == end.y) {
-                sb.append(sum[end.x][end.y] - sum[end.x][end.y - 1]).append("\n");
-            } else {
-                for (int row = start.x; row <= end.x; row++) {
-                    tmp += sum[row][end.y] - sum[row][start.y - 1];
-                }
-                sb.append(tmp).append("\n");
-            }
+            int x1 = Integer.parseInt(st.nextToken());
+            int y1 = Integer.parseInt(st.nextToken());
+            int x2 = Integer.parseInt(st.nextToken());
+            int y2 = Integer.parseInt(st.nextToken());
+          
+            sb.append(sum[x2][y2] - sum[x1 - 1][y2] - sum[x2][y1 - 1] + sum[x1 - 1][y1 - 1]).append("\n");
         }
         System.out.println(sb);
     }
